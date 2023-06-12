@@ -9,7 +9,7 @@ import UIKit
 
 class HomeView: UIView {
     // MARK: - properties
-    let searchBar = UISearchBar()
+    let title = UILabel()
     var tableView: UITableView!
     
     // MARK: - init
@@ -24,19 +24,33 @@ class HomeView: UIView {
     
     // MARK: - prepare UI
     func setupView() {
-        // search bar
-        prepareSearchBar()
+        // title
+        prepareTitle()
         
         // table view
         prepareTableView()
         
+        // add subview
+        addSubview(tableView)
+        addSubview(title)
+        
+        // add constraints
+        tableView.anchorWithConstantsToTop(top: title.bottomAnchor, left: leftAnchor, right: rightAnchor, bottom: bottomAnchor, topConstant: 16, leftConstant: K.sizes.leftPadding, rightConstant: K.sizes.rightPadding)
+        title.anchorWithConstantsToTop(top: topAnchor, topConstant: 8)
+        
+        NSLayoutConstraint.activate([
+            title.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
     }
     
     func prepareTableView() {
-        
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.backgroundColor = .gray
     }
     
-    func prepareSearchBar() {
-        
+    func prepareTitle() {
+        title.text = "0 Result"
+        title.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        title.textColor = .black
     }
 }

@@ -15,6 +15,10 @@ public extension UIView {
         anchorWithConstantsToTop(top: top, left: left, right: right, bottom: bottom, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0)
     }
     
+    func anchorToSafeArea(view: UIView) {
+        anchorWithConstantsToTop(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0)
+    }
+    
     func anchorWithConstantsToTop(top : NSLayoutYAxisAnchor? = nil, left : NSLayoutXAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil,
                                   bottom : NSLayoutYAxisAnchor? = nil , topConstant : CGFloat = 0 ,
                                   leftConstant : CGFloat = 0 , rightConstant : CGFloat = 0 , bottomConstant : CGFloat = 0)
