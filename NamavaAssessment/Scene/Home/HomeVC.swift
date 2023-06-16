@@ -27,7 +27,8 @@ class HomeVC: UIViewController {
         let mainView = HomeView()
         self.tableView = mainView.tableView
         self.titleLabel = mainView.title
-        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         // search bar
         prepareSearchBar()
         
@@ -58,7 +59,7 @@ class HomeVC: UIViewController {
         self.viewModel.dataCompletion = {[weak self] data in
             DispatchQueue.main.async {
                 self?.titleLabel.text = "\(data.count) Resutls"
-                print("data count",data.count)
+                self?.tableView.reloadData()
             }
         }
     }
@@ -69,6 +70,22 @@ extension HomeVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let keyword = searchBar.text, keyword.count >= 3 {
             self.viewModel.fetchMusic(by: keyword)
+        } else {
+            self.viewModel.data = []
+            self.viewModel.dataCompletion?([])
         }
     }
+}
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.viewModel.data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeMusicCell.CellID) as! HomeMusicCell
+        let music = self.viewModel.data[indexPath.row]
+        cell.configure(music: music)
+        return cell
+    }
+    
 }

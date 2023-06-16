@@ -19,7 +19,8 @@ struct Music: Decodable {
     let artistName, collectionName, trackName, collectionCensoredName: String?
     let trackCensoredName: String?
     let artistViewURL, collectionViewURL, trackViewURL: String?
-    let previewURL: String?
+    let previewURL, artworkUrl30: String?
+    let releaseDate: String?
     let trackTimeMillis: Int?
     let collectionArtistName: String?
 }

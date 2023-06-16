@@ -45,7 +45,7 @@ class HomeView: UIView {
     
     func prepareTableView() {
         tableView = UITableView(frame: .zero, style: .plain)
-        tableView.backgroundColor = .gray
+        tableView.register(HomeMusicCell.self, forCellReuseIdentifier: HomeMusicCell.CellID)
     }
     
     func prepareTitle() {
